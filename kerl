@@ -2200,6 +2200,11 @@ upgrade_kerl() {
     l=n stderr "kerl $version is now available at $current_kerl_path."
 }
 
+activate_otp() {
+    install_folder="${1}/activate"
+    . ${install_folder}
+}
+
 case "$1" in
     version)
         echo "$KERL_VERSION"
@@ -2425,6 +2430,20 @@ case "$1" in
     active)
         if ! do_active; then
             exit 1;
+        fi
+        ;;
+    activate)
+        if [ $# -lt 2 ]; then
+            l=e stderr "usage: $0 $1 <install_name>"
+            exit 1
+        fi
+        if [ $# -eq 2 ]; then
+            if [ -z "$KERL_DEFAULT_INSTALL_DIR" ]; then
+                activate_otp ${KERL_INSTALLATION_DIR}/${2}
+            else
+                echo "oopsie nothing was done"
+                exit 1
+            fi
         fi
         ;;
     plt)

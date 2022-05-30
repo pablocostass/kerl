@@ -44,6 +44,7 @@ _1st_arguments=(
   'list:List releases, builds and installations'
   'delete:Delete builds and installations'
   'active:Print the path of the active installation'
+  'activate:Activate the installation of the given path'
   'path:Print the path of any installation'
   'status:Print available builds and installations'
   'prompt:Print a string suitable for insertion in prompt'
@@ -101,6 +102,15 @@ case "$words[1]" in
       fi
       # TODO: suggest starting location of "$KERLDIR/$(lowercase $build)"
       _directories
+      ;;
+  activate)
+    _arguments \
+          '1: :->installnames' && return 0
+      if [[ "$state" == installnames ]]; then
+          _kerl_installnames
+          _wanted installnames expl '' compadd -a installnames
+          return
+      fi
       ;;
   path)
       _arguments \
