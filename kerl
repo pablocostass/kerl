@@ -217,6 +217,7 @@ fi
 KERL_BASE_DIR=${KERL_BASE_DIR:="$HOME"/.kerl}
 KERL_CONFIG=${KERL_CONFIG:="$HOME"/.kerlrc}
 KERL_DOWNLOAD_DIR=${KERL_DOWNLOAD_DIR:="${KERL_BASE_DIR:?}"/archives}
+KERL_DEFAULT_INSTALL_DIR=${KERL_INSTALLATION_DIR:="${KERL_BASE_DIR:?}"/installations}
 KERL_BUILD_DIR=${KERL_BUILD_DIR:="${KERL_BASE_DIR:?}"/builds}
 KERL_GIT_DIR=${KERL_GIT_DIR:="${KERL_BASE_DIR:?}"/gits}
 KERL_GIT_BASE=https://raw.githubusercontent.com/kerl/kerl/master
