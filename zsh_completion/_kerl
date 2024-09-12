@@ -47,6 +47,7 @@ _1st_arguments=(
     'delete:Delete builds and installations'
     'path:Print the path of a given installation'
     'active:Print the path of the active installation'
+    'activate:Activate the installation of the given path'
     'plt:Print Dialyzer PLT path for the active installation'
     'status:Print available builds and installations'
     'prompt:Print a string suitable for insertion in prompt'
@@ -85,6 +86,15 @@ if (( CURRENT == 1 )); then
 fi
 
 case "${words[1]}" in
+    activate)
+        _arguments \
+            '1: :->build_name' && return 0
+        if [[ "$state" == build_name ]]; then
+            _kerl_otp_builds
+            _wanted builds expl 'all builds' compadd -a builds
+            return
+        fi
+        ;;
     build)
         _arguments \
             '1: :->release' \

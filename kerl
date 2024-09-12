@@ -324,6 +324,7 @@ k_usage() {
     nocolor "  delete          Delete builds and installations"
     nocolor "  path            Print the path of a given installation"
     nocolor "  active          Print the path of the active installation"
+    nocolor "  activate        Activate the installation of the given path"
     nocolor "  plt             Print Dialyzer PLT path for the active installation"
     nocolor "  status          Print available builds and installations"
     nocolor "  prompt          Print a string suitable for insertion in prompt"
@@ -2322,6 +2323,11 @@ upgrade_kerl() {
     notice "kerl $version is now available at $current_kerl_path."
 }
 
+activate_otp() {
+    install_folder="${1}/activate"
+    echo ". ${install_folder}"
+}
+
 fix_otp_builds
 fix_otp_installations
 
@@ -2332,6 +2338,20 @@ version)
     fi
 
     echo "$KERL_VERSION"
+    ;;
+activate)
+    if [ $# -lt 2 ]; then
+        l=e stderr "usage: $0 $1 <install_name>"
+        exit 1
+    fi
+    if [ $# -eq 2 ]; then
+        if [ ! -z "$KERL_DEFAULT_INSTALL_DIR" ]; then
+            activate_otp ${KERL_INSTALLATION_DIR}/${2}
+        else
+            echo "oopsie nothing was done"
+            exit 1
+        fi
+    fi
     ;;
 build)
     if [ "$2" = 'git' ]; then
